@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+/* Executive field report: matte surfaces follow the owner’s dark/steel-blue direction.
+   Energy 2 / Rhythm 2 / Motion 1. Large tabular figures anchor the financial narrative;
+   restrained rules separate evidence from decisions without decorative gradients.
+   Mobile is content-height first; desktop gains columns through existing utilities. */
+:root{color-scheme:dark;--paper:#10151b;--ink:#eef2f5;--muted:#aebbc9;--rule:#303d4a;--steel:#9cbdd7}
+*{box-sizing:border-box}
+body{font-family:"Plus Jakarta Sans",sans-serif!important;background:#080b0f!important;color:var(--ink);height:auto!important;min-height:100dvh;overflow:visible!important;-webkit-font-smoothing:antialiased}
+.font-mono{font-family:inherit!important;font-variant-numeric:tabular-nums}
+header{height:auto!important;min-height:88px;padding:20px 24px!important;flex-wrap:wrap;background:#0c1015!important;border-color:var(--rule)!important}
+header>div{min-width:0}header>div:first-child{flex:1 1 360px}header>div:last-child{flex-wrap:wrap}
+header h1{font-size:17px!important;letter-spacing:-.035em}header img{height:34px!important}
+header h1+span{background:transparent!important;border:0!important;color:var(--muted)!important;font-size:10px}
+header>div:first-child>div:last-child>div{flex-wrap:wrap}
+button,input,select{min-height:44px;border-radius:6px!important;font:inherit;transition:background-color .15s,color .15s}
+button{cursor:pointer}button:disabled{cursor:not-allowed}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid #c0d9eb!important;outline-offset:4px}
+button:active{transform:translateY(1px)}
+#btn-mode-slide,#btn-mode-dash{font-size:12px;line-height:1.45;padding:10px 14px}
+button.bg-brand-500,#btn-next{background:#395a73!important;color:#fff!important;box-shadow:none!important}
+button:hover:not(:disabled){filter:brightness(1.18)}
+#view-slide,#view-dash{max-width:1280px;padding:28px 24px!important;overflow:visible!important;flex:none!important}
+#slide-wrapper{background:var(--paper)!important;border:1px solid var(--rule)!important;border-radius:10px!important;box-shadow:none!important;padding:28px!important;min-height:620px!important}
+#slide-wrapper>div:first-child{align-items:flex-start;gap:20px;flex-wrap:wrap;border-color:var(--rule);padding-bottom:20px;margin-bottom:30px}
+#slide-wrapper>div:first-child>div:first-child{flex-wrap:wrap;max-width:760px;line-height:1.65}
+#slide-wrapper>div:first-child>div:last-child{justify-content:space-between;flex-wrap:wrap}
+#slide-wrapper>div:first-child .hidden{display:inline!important}
+#slide-counter{font-size:14px;background:transparent;border:0;white-space:nowrap;color:var(--steel)}
+#slide-content{justify-content:flex-start}
+.slide-page h2{font-size:clamp(25px,2.8vw,39px)!important;line-height:1.18!important;letter-spacing:-.035em!important;margin-bottom:22px}
+.slide-page[data-page="1"] h2{max-width:980px;font-size:clamp(30px,3.6vw,48px)!important}
+.slide-page p{line-height:1.8!important}
+.slide-page .text-xs{font-size:12px;line-height:1.65}
+.slide-page .text-sm{font-size:14px;line-height:1.7}
+.slide-page .grid{gap:18px}
+.slide-page .rounded-xl,#view-dash .rounded-xl{border-radius:7px!important;box-shadow:none!important}
+.slide-page [class*="bg-brand-950"]{background:#0b1016!important}
+.slide-page [class*="border-l-"]{border-left-width:1px!important}
+.slide-page [class*="bg-gradient"]{background-image:none!important;background-color:#17212b!important}
+.slide-page .text-2xl.font-bold,#view-dash .text-2xl{font-size:34px;letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.slide-page[data-page="1"] .grid>div{padding:20px 18px;background:transparent!important;border:0;border-top:1px solid var(--rule);border-radius:0!important}
+.text-slate-500,.text-slate-400{color:var(--muted)!important}.text-slate-700{color:#9caaba!important}
+.text-brand-400,.text-brand-300{color:var(--steel)!important}
+.tracking-wider{letter-spacing:.035em!important}
+#slide-wrapper>div:last-child{gap:16px;flex-wrap:wrap;margin-top:28px;border-color:var(--rule)}
+#slide-indicators{gap:2px;counter-reset:slide}
+#slide-indicators button{counter-increment:slide;width:44px!important;min-width:44px;height:44px!important;background:transparent!important;border-radius:4px!important;color:#aebbc9}
+#slide-indicators button::after{content:counter(slide);font-size:12px;font-variant-numeric:tabular-nums}
+#slide-indicators button.bg-brand-400{background:#293d4e!important;color:white;border-bottom:2px solid #9cbdd7}
+#view-slide>div:last-child{gap:14px;flex-wrap:wrap;line-height:1.7;font-size:11px}
+#view-dash>div:first-child{gap:20px;align-items:flex-start;flex-wrap:wrap}
+#view-dash h2{font-size:clamp(24px,2.4vw,32px);line-height:1.3}
+#view-dash>div:nth-child(2)>div{background:transparent;border:0;border-top:1px solid var(--rule);border-radius:0!important;padding:20px 12px}
+#view-dash>div:nth-child(3)>div{padding:24px!important;background:var(--paper);border-color:var(--rule)}
+#view-dash h3{line-height:1.6;text-transform:none;letter-spacing:0!important;font-size:14px}
+#view-dash .h-64{height:300px}
+#view-dash>div:last-child{padding:24px;background:var(--paper);border-color:var(--rule)}
+#view-dash>div:last-child>div:first-child{flex-wrap:wrap}
+#view-dash>div:last-child>div:first-child>div{flex-wrap:wrap;min-width:0}
+#search-input{width:min(360px,100%)}
+input,select{background:#0b1016!important;border-color:#425365!important;color:#e7edf3!important;font-size:12px!important}
+input::placeholder{color:#aebbc9}
+.overflow-x-auto{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}
+table{min-width:1020px;line-height:1.7}th{color:#b8c9d8;white-space:nowrap;padding:16px 12px!important}td{padding:16px 12px!important;vertical-align:top}tbody tr:nth-child(even){background:#141c24}tbody tr:hover{background:#1c2935!important}
+#counter-count{gap:12px;flex-wrap:wrap;line-height:1.6}
+.custom-scroll{scrollbar-width:thin;scrollbar-color:#4c6275 #10151b}
+@media(min-width:1440px){#view-slide{padding-top:40px!important}#slide-wrapper{padding:40px!important;min-height:690px!important}}
+@media(max-width:900px){header>div:last-child{width:100%}header>div:last-child>div:last-child{width:100%}#btn-mode-slide,#btn-mode-dash{flex:1;justify-content:center}#slide-wrapper{min-height:0!important}#slide-wrapper>div:last-child{justify-content:space-between}#slide-indicators{order:3;width:100%;justify-content:center}.slide-page .grid{grid-template-columns:minmax(0,1fr)!important}.slide-page[data-page="1"] .grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:600px){header{padding:16px!important;gap:14px}header>div:first-child{flex-basis:100%;gap:12px}header h1{font-size:15px!important}header img{max-width:64px;height:auto!important}header>div:last-child{gap:0}#btn-mode-slide,#btn-mode-dash{padding:10px 8px;font-size:11px}#btn-mode-slide svg,#btn-mode-dash svg{display:none}#view-slide,#view-dash{padding:16px 12px!important}#slide-wrapper{padding:20px 16px!important}#slide-wrapper>div:first-child{gap:12px;margin-bottom:24px}#slide-wrapper>div:first-child>div:last-child{width:100%}#slide-topic{display:block;width:100%}.slide-page h2{font-size:25px!important}.slide-page[data-page="1"] h2{font-size:30px!important}.slide-page .text-sm,.slide-page p{font-size:13px!important}.slide-page .grid{gap:14px}.slide-page[data-page="1"] .grid>div{padding:16px 6px}.slide-page .flex{min-width:0;flex-wrap:wrap}.slide-page .text-2xl.font-bold{font-size:29px}#btn-prev,#btn-next{padding:10px;font-size:11px;gap:5px}#view-dash>div:nth-child(3){grid-template-columns:minmax(0,1fr)}#view-dash>div:nth-child(3)>div,#view-dash>div:last-child{padding:16px!important}#view-dash .h-64{height:320px}#view-dash>div:last-child>div:first-child>div:last-child{width:100%}#search-input,#filter-status{width:100%}#view-dash .grid>div{min-width:0}#view-dash h3{font-size:12px}#view-slide>div:last-child{padding:0 4px}#slide-wrapper>div:first-child .uppercase{font-size:10px}#counter-count{font-size:11px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+/* Keep full canvas legend labels available on narrow screens without changing chart logic. */
+@media(max-width:900px){#view-dash>div:nth-child(3){grid-template-columns:minmax(0,1fr)!important}#view-dash>div:nth-child(3)>div:first-child{overflow-x:auto;overscroll-behavior-x:contain}#view-dash .h-64:has(#chartReasons){width:640px;height:320px}#view-dash>div:nth-child(3)>div:first-child>div:first-child,#view-dash>div:nth-child(3)>div:first-child>div:last-child{position:sticky;left:0}}
