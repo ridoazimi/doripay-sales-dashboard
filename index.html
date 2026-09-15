@@ -698,11 +698,18 @@
         reasonCounts[cat] = (reasonCounts[cat] || 0) + 1;
       });
 
+      const totalReasons = Object.values(reasonCounts).reduce((a, b) => a + b, 0);
+      const labelsWithPct = Object.keys(reasonCounts).map(k => {
+        const val = reasonCounts[k];
+        const pct = ((val / totalReasons) * 100).toFixed(1);
+        return k + ' (' + pct + '%)';
+      });
+
       const ctx1 = document.getElementById('chartReasons').getContext('2d');
       chartReasonsInstance = new Chart(ctx1, {
         type: 'doughnut',
         data: {
-          labels: Object.keys(reasonCounts),
+          labels: labelsWithPct,
           datasets: [{
             data: Object.values(reasonCounts),
             backgroundColor: [
@@ -725,8 +732,18 @@
               position: 'right',
               labels: {
                 color: '#cbd5e1',
-                font: { family: 'Plus Jakarta Sans', size: 10 },
-                boxWidth: 12
+                font: { family: 'Plus Jakarta Sans', size: 11 },
+                boxWidth: 14,
+                padding: 10
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const val = context.raw;
+                  const pct = ((val / totalReasons) * 100).toFixed(1);
+                  return ' ' + context.label.split(' (')[0] + ': ' + val + ' konter (' + pct + '%)';
+                }
               }
             }
           }
