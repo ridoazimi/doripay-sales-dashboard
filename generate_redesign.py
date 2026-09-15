@@ -685,8 +685,8 @@ html = """<!DOCTYPE html>
             </span>
           </td>
           <td class="py-2.5 px-3">${phoneDisplay}</td>
-          <td class="py-2.5 px-3 text-slate-400 max-w-xs truncate" title="${item.notes || '-'}">${item.notes || '-'}</td>
-          <td class="py-2.5 px-3 text-[10px] text-slate-500 font-mono whitespace-nowrap">${item.source || 'Form Lapangan'}</td>
+          <td class="py-2.5 px-3 text-slate-400 min-w-[220px] max-w-sm whitespace-normal break-words leading-relaxed text-slate-300" title="${item.notes || '-'}">${item.notes || '-'}</td>
+          <td class="py-2.5 px-3 text-[10px] text-slate-500 font-mono ">${item.source || 'Form Lapangan'}</td>
         `;
         tbody.appendChild(tr);
       });
