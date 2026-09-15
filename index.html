@@ -1,536 +1,507 @@
 <!DOCTYPE html>
-<html lang="id" class="dark">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Doripay Analytics | Executive Sales & Field Penetration Report</title>
-  <!-- Tailwind CSS -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doripay Executive Briefing | Evaluasi Penetrasi Lapangan Salatiga</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            brand: {
-              50: '#eef2ff',
-              100: '#e0e7ff',
-              500: '#6366f1',
-              600: '#4f46e5',
-              700: '#4338ca',
+            premium: {
+              950: '#07090e',
+              900: '#0c1017',
+              850: '#111722',
+              800: '#172030',
+              700: '#233047',
+              600: '#334464'
+            },
+            steelblue: {
+              50: '#f0f6fc',
+              100: '#e1ecf8',
+              200: '#c3daf2',
+              300: '#94bfe9',
+              400: '#5e9edc',
+              500: '#4682b4', // Classic Steel Blue
+              600: '#316999',
+              700: '#25527a',
+              800: '#1d4161',
+              900: '#18344d'
             }
           }
         }
       }
     }
   </script>
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts Plus Jakarta Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: #07090e;
-      color: #f1f5f9;
+      color: #e2e8f0;
     }
-    .glass-card {
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
     }
-    .glass-card-highlight {
-      background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
-      border: 1px solid rgba(99, 102, 241, 0.35);
+    .slide-container {
+      aspect-ratio: 16 / 9;
     }
-    .glow-emerald {
-      box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
+    @media (max-width: 1024px) {
+      .slide-container {
+        aspect-ratio: auto;
+        min-height: 85vh;
+      }
     }
-    .badge-closing {
-      background: rgba(16, 185, 129, 0.15);
-      color: #34d399;
-      border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-    .badge-fu {
-      background: rgba(245, 158, 11, 0.15);
-      color: #fbbf24;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-    }
-    .badge-tolak {
-      background: rgba(239, 68, 68, 0.12);
-      color: #f87171;
-      border: 1px solid rgba(239, 68, 68, 0.25);
-    }
-    ::-webkit-scrollbar {
+    .custom-scroll::-webkit-scrollbar {
       width: 6px;
       height: 6px;
     }
-    ::-webkit-scrollbar-track {
-      background: #07090e;
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #0c1017;
     }
-    ::-webkit-scrollbar-thumb {
-      background: #1e293b;
-      border-radius: 4px;
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #233047;
+      border-radius: 3px;
     }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #334155;
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: #4682b4;
     }
   </style>
 </head>
-<body class="min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
+<body class="bg-premium-950 text-slate-100 min-h-screen selection:bg-steelblue-500 selection:text-white">
 
-  <!-- Top Navigation / Header -->
-  <header class="sticky top-0 z-50 glass-card border-b border-slate-800/80 px-4 lg:px-8 py-3.5">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/30">
-          <i class="fa-solid fa-bolt-lightning text-lg"></i>
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="font-extrabold tracking-wider text-white text-lg">DORIPAY</span>
-            <span class="text-[10px] tracking-widest uppercase px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-bold border border-indigo-500/30">EXECUTIVE BRIEF</span>
-          </div>
-          <p class="text-xs text-slate-400">Audit Penetrasi Lapangan Sales Canvassing &bull; Wilayah Salatiga</p>
-        </div>
+  <!-- TOP APP BAR -->
+  <header class="sticky top-0 z-50 border-b border-premium-800 bg-premium-900/90 backdrop-blur-md px-4 sm:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-steelblue-500/20 border border-steelblue-400/40 flex items-center justify-center font-bold text-steelblue-300 font-mono text-sm">
+        DP
       </div>
+      <div>
+        <h1 class="text-sm sm:text-base font-bold tracking-tight text-white flex items-center gap-2">
+          Doripay Executive Strategy
+          <span class="text-xs px-2 py-0.5 rounded bg-premium-800 border border-premium-700 text-steelblue-300 font-mono">Salatiga Audit</span>
+        </h1>
+      </div>
+    </div>
 
-      <!-- Header Stats & Actions -->
-      <div class="flex items-center flex-wrap gap-2">
-        <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-300">
-          <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>Sample: <strong>47 Konter</strong> (Audit Riil)</span>
-        </div>
-        <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 transition flex items-center gap-1.5">
-          <i class="fa-solid fa-print"></i> Cetak PDF
-        </button>
-        <a href="#decision-matrix" class="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-xs font-semibold text-white shadow-md shadow-indigo-600/30 transition flex items-center gap-1.5">
-          <i class="fa-solid fa-compass"></i> Opsi Keputusan
-        </a>
-      </div>
+    <!-- VIEW TOGGLE -->
+    <div class="flex items-center gap-2 bg-premium-950 p-1 rounded-lg border border-premium-800 text-xs font-medium">
+      <button id="btn-mode-slide" onclick="switchView('slide')" class="px-3.5 py-1.5 rounded-md transition-all flex items-center gap-1.5 bg-steelblue-500 text-white font-semibold">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/></svg>
+        Slide Presentasi (16:9)
+      </button>
+      <button id="btn-mode-dash" onclick="switchView('dash')" class="px-3.5 py-1.5 rounded-md transition-all flex items-center gap-1.5 text-slate-400 hover:text-white">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+        Dashboard Lengkap
+      </button>
     </div>
   </header>
 
-  <!-- Main Container -->
-  <main class="max-w-7xl mx-auto px-4 lg:px-8 py-8 space-y-8">
-
-    <!-- Executive Hero Briefing -->
-    <div class="glass-card-highlight rounded-2xl p-6 lg:p-8 relative overflow-hidden">
-      <div class="absolute -right-20 -top-20 w-80 h-80 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none"></div>
-      <div class="relative z-10 space-y-4 max-w-4xl">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-semibold">
-          <i class="fa-solid fa-triangle-exclamation"></i> EXECUTIVE TAKEAWAY UNTUK KOMISARIS
+  <!-- ======================================================== -->
+  <!-- VIEW 1: 16:9 SLIDE PRESENTATION DECK                     -->
+  <!-- ======================================================== -->
+  <main id="view-slide" class="max-w-6xl mx-auto p-3 sm:p-6 lg:p-8 flex flex-col justify-center min-h-[calc(100vh-65px)]">
+    
+    <!-- SLIDE CARD CONTAINER (16:9 ASPECT) -->
+    <div class="slide-container w-full bg-premium-900 border border-premium-800 rounded-2xl p-6 sm:p-10 lg:p-12 flex flex-col justify-between shadow-2xl relative overflow-hidden">
+      
+      <!-- SLIDE TOP BAR -->
+      <div class="flex items-center justify-between border-b border-premium-800/80 pb-4 mb-4">
+        <div class="flex items-center gap-2 text-xs font-mono text-steelblue-400 font-semibold tracking-wider uppercase">
+          <span>Doripay Board Deck</span>
+          <span class="text-premium-600">/</span>
+          <span id="slide-topic">Kondisi Pasar & Opsi Bertahan</span>
         </div>
-        <h1 class="text-2xl lg:text-3xl font-bold text-white tracking-tight leading-snug">
-          Evaluasi Sales Lapangan: Mengapa 70% Konter Menolak, dan di Mana Peluang Menangnya?
-        </h1>
-        <p class="text-sm lg:text-base text-slate-300 leading-relaxed">
-          Berdasarkan 47 kunjungan lapangan, penolakan terjadi bukan karena sistem Doripay gagal, melainkan karena <strong class="text-white">Kelelahan Aplikasi (App Fatigue)</strong> dan <strong class="text-white">ketiadaan pembeda harga/fitur transaksi WA</strong>. Menghentikan sales acak dan mengalihkan 80% energi ke <strong>Sidomukti</strong> serta mengunci <strong>11 konter follow-up</strong> adalah kunci menjaga efisiensi kas (burn-rate) Doripay.
-        </p>
+        <div class="flex items-center gap-3">
+          <span id="slide-counter" class="text-xs font-mono text-slate-400 bg-premium-850 px-2.5 py-1 rounded border border-premium-800">
+            Slide 1 / 6
+          </span>
+        </div>
+      </div>
+
+      <!-- SLIDE CONTENT PAGES -->
+      <div id="slide-content" class="flex-1 flex flex-col justify-center my-auto">
+
+        <!-- SLIDE 1: COVER & DILEMA STRATEGIS -->
+        <div class="slide-page" data-page="1" data-topic="Latar Belakang & Pertimbangan">
+          <div class="max-w-3xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-steelblue-500/10 border border-steelblue-500/30 text-steelblue-400 text-xs font-medium mb-5">
+              Kajian Manajemen & Dewan Direksi
+            </div>
+            <h2 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
+              Realitas Penetrasi Konter Salatiga: <br>
+              <span class="text-steelblue-400">Pilihan Menyerah atau Konsekuensi Bertahan</span>
+            </h2>
+            <p class="text-sm sm:text-base text-slate-400 leading-relaxed mb-8">
+              Audit terhadap 47 konter menunjukkan pasar PPOB konter murni didorong oleh sensitivitas harga ekstrem dengan loyalitas nol. Jika perusahaan memilih opsi bertahan, komitmen modal harus siap menghadapi perang harga dan beban biaya akuisisi yang tinggi.
+            </p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+              <div class="p-3 bg-premium-850 rounded-lg border border-premium-800">
+                <div class="text-slate-500 mb-1">Total Konter Diaudit</div>
+                <div class="text-xl font-bold text-white">47</div>
+              </div>
+              <div class="p-3 bg-premium-850 rounded-lg border border-premium-800">
+                <div class="text-slate-500 mb-1">Tingkat Penolakan</div>
+                <div class="text-xl font-bold text-rose-400">70.2%</div>
+              </div>
+              <div class="p-3 bg-premium-850 rounded-lg border border-premium-800">
+                <div class="text-slate-500 mb-1">Prospek Terbuka</div>
+                <div class="text-xl font-bold text-amber-400">23.4%</div>
+              </div>
+              <div class="p-3 bg-premium-850 rounded-lg border border-premium-800">
+                <div class="text-slate-500 mb-1">Konversi Closing</div>
+                <div class="text-xl font-bold text-steelblue-400">6.4%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 2: FUNNEL REALITAS LAPANGAN -->
+        <div class="slide-page hidden" data-page="2" data-topic="Data Riil Corong Sales">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-6">
+              <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">Corong Penjualan Lapangan (Sales Funnel)</h3>
+              <p class="text-xs sm:text-sm text-slate-400 mb-5 leading-relaxed">
+                Hasil kunjungan acak di 4 kecamatan (Sidomukti, Argomulyo, Tingkir, Sidorejo). Mayoritas menolak di tempat karena merasa aplikasi lama sudah cukup.
+              </p>
+              <div class="space-y-3 font-mono text-xs">
+                <div class="p-3.5 rounded-xl bg-premium-850 border border-premium-800 flex items-center justify-between">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-slate-500"></span>
+                    <span class="font-sans font-medium text-slate-300">Total Kunjungan Canvassing</span>
+                  </div>
+                  <span class="font-bold text-white text-sm">47 Konter (100%)</span>
+                </div>
+                <div class="p-3.5 rounded-xl bg-rose-950/20 border border-rose-900/40 flex items-center justify-between">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
+                    <span class="font-sans font-medium text-rose-300">Penolakan Langsung</span>
+                  </div>
+                  <span class="font-bold text-rose-300 text-sm">33 Konter (70.2%)</span>
+                </div>
+                <div class="p-3.5 rounded-xl bg-amber-950/20 border border-amber-900/40 flex items-center justify-between">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="font-sans font-medium text-amber-300">Prospek Butuh Follow-Up</span>
+                  </div>
+                  <span class="font-bold text-amber-300 text-sm">11 Konter (23.4%)</span>
+                </div>
+                <div class="p-3.5 rounded-xl bg-steelblue-950/40 border border-steelblue-700/50 flex items-center justify-between">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-steelblue-400"></span>
+                    <span class="font-sans font-medium text-steelblue-200">Closing (Daftar & Transaksi)</span>
+                  </div>
+                  <span class="font-bold text-steelblue-300 text-sm">3 Konter (6.4%)</span>
+                </div>
+              </div>
+            </div>
+            <div class="lg:col-span-6 bg-premium-850 p-5 rounded-xl border border-premium-800 flex flex-col items-center">
+              <div class="text-xs font-mono text-slate-400 mb-2 w-full text-left">Komparasi Hasil Kunjungan</div>
+              <div class="w-full max-w-xs h-56">
+                <canvas id="chart-funnel-slide"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 3: AKAR MASALAH: SIFAT PASAR KONTER -->
+        <div class="slide-page hidden" data-page="3" data-topic="Perilaku Pasar & Penolakan">
+          <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">Mengapa Konter Menolak? Kenyataan Pasar</h3>
+          <p class="text-xs sm:text-sm text-slate-400 mb-6">
+            Berdasarkan 33 penolakan konter, ada tiga temuan kritis yang wajib dipahami manajemen:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-5 bg-premium-850 rounded-xl border border-premium-800 flex flex-col justify-between">
+              <div>
+                <div class="text-xs font-mono text-steelblue-400 font-semibold mb-2">01. ZERO LOYALTY & FITUR</div>
+                <h4 class="text-base font-bold text-white mb-2">Hanya Peduli Harga Modal</h4>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                  Konter tidak tertarik pada benefit tampilan atau fitur canggih. Satu-satunya pertanyaan adalah: <em>"Berapa harga modal pulsa Telkomsel dan paket data dibanding aplikasi lama?"</em>
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-premium-800 text-[11px] font-mono text-slate-500">
+                Selisih Rp100 menentukan loyalitas konter
+              </div>
+            </div>
+            <div class="p-5 bg-premium-850 rounded-xl border border-premium-800 flex flex-col justify-between">
+              <div>
+                <div class="text-xs font-mono text-steelblue-400 font-semibold mb-2">02. APP FATIGUE</div>
+                <h4 class="text-base font-bold text-white mb-2">Terlalu Banyak Aplikasi</h4>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                  Rata-rata pemilik konter telah menginstal 3 sampai 5 aplikasi (Digipos, Bos Pulsa, ShopeePay, Mitra Bukalapak). Menambah aplikasi baru dianggap memecah modal kerja mereka.
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-premium-800 text-[11px] font-mono text-slate-500">
+                Modal konter terbagi di banyak saldo
+              </div>
+            </div>
+            <div class="p-5 bg-premium-850 rounded-xl border border-premium-800 flex flex-col justify-between">
+              <div>
+                <div class="text-xs font-mono text-steelblue-400 font-semibold mb-2">03. KEBUTUHAN TRANSAKSI WA</div>
+                <h4 class="text-base font-bold text-white mb-2">Top Request Jalur Cepat</h4>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                  Catatan lapangan mencatat permintaan tertinggi: transaksi praktis via format WhatsApp. Konter enggan membuka aplikasi yang berat ketika antrean pembeli sedang ramai.
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-premium-800 text-[11px] font-mono text-slate-500">
+                Kebutuhan kepraktisan operasional
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 4: THE BRUTAL UNIT ECONOMICS (CAC VS MARGIN) -->
+        <div class="slide-page hidden" data-page="4" data-topic="Analisis Unit Economics">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-7">
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-rose-950/40 border border-rose-800/40 text-rose-300 text-xs font-mono mb-3">
+                Kalkulasi Finansial Dingin
+              </div>
+              <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">Biaya Akuisisi Tinggi vs Margin Tipis</h3>
+              <p class="text-xs sm:text-sm text-slate-400 mb-5 leading-relaxed">
+                Skema sales keliling untuk produk komoditas pulsa menghadapi kebuntuan unit economics: biaya merekrut satu konter aktif jauh lebih besar daripada margin yang dihasilkan.
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs mb-4">
+                <div class="p-3.5 bg-premium-850 rounded-xl border border-premium-800">
+                  <span class="text-slate-500 block mb-1">Estimasi CAC Sales Lapangan</span>
+                  <span class="text-lg font-bold text-rose-400">Rp 800.000+</span>
+                  <span class="text-[11px] text-slate-400 block mt-1 font-sans">Biaya operasional sales dibagi konter aktif</span>
+                </div>
+                <div class="p-3.5 bg-premium-850 rounded-xl border border-premium-800">
+                  <span class="text-slate-500 block mb-1">Rata-rata Margin per Trx Pulsa</span>
+                  <span class="text-lg font-bold text-amber-400">Rp 50 - Rp 150</span>
+                  <span class="text-[11px] text-slate-400 block mt-1 font-sans">Margin tergerus akibat perang harga</span>
+                </div>
+              </div>
+              <div class="p-3.5 bg-steelblue-950/30 border border-steelblue-800/40 rounded-xl text-xs">
+                <div class="font-bold text-steelblue-300 mb-1">Waktu Balik Modal (Payback Period): ~17 - 18 Bulan</div>
+                <div class="text-slate-400 leading-relaxed font-sans">
+                  Perusahaan membutuhkan 1.5 tahun transaksi rutin dari satu konter hanya untuk menutup biaya sales akuisisinya, sementara risiko konter berpindah ke aplikasi lain sangat tinggi setiap saat.
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 bg-premium-850 p-5 rounded-xl border border-premium-800">
+              <div class="text-xs font-mono text-slate-400 mb-3">Struktur Laba vs Beban per Konter</div>
+              <div class="space-y-3 text-xs">
+                <div>
+                  <div class="flex justify-between text-[11px] mb-1">
+                    <span class="text-slate-400">Laba Bersih per Bulan (15 trx/hari x Rp100)</span>
+                    <span class="text-white font-mono font-semibold">Rp 45.000 / bln</span>
+                  </div>
+                  <div class="w-full bg-premium-800 h-2 rounded-full overflow-hidden">
+                    <div class="bg-steelblue-500 h-2 rounded-full" style="width: 15%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-[11px] mb-1">
+                    <span class="text-slate-400">Beban Akuisisi Konter (CAC Sales)</span>
+                    <span class="text-rose-400 font-mono font-semibold">Rp 800.000</span>
+                  </div>
+                  <div class="w-full bg-premium-800 h-2 rounded-full overflow-hidden">
+                    <div class="bg-rose-500 h-2 rounded-full" style="width: 100%"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-6 p-3 bg-premium-900 rounded-lg border border-premium-750 text-[11px] text-slate-400 leading-relaxed">
+                <span class="text-white font-semibold">Catatan Strategis:</span> Mempertahankan sales fisik tanpa menaikkan margin transaksi akan mempercepat pembakaran kas operasional.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 5: KONSEKUENSI JIKA BERTAHAN (PERANG HARGA & CAC) -->
+        <div class="slide-page hidden" data-page="5" data-topic="Konsekuensi Bertahan">
+          <div class="max-w-4xl">
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-steelblue-500/20 border border-steelblue-400/40 text-steelblue-300 text-xs font-mono mb-3">
+              Rekomendasi Utama ke Komisaris
+            </div>
+            <h3 class="text-xl sm:text-2xl font-bold text-white mb-3">
+              Kenyataan Mutlak Jika Ingin Bertahan di Pasar Ini
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-300 mb-6 leading-relaxed">
+              Jika dewan komisaris memutuskan Doripay <strong>tetap bertahan</strong> di pasar PPOB konter, maka perusahaan harus secara sadar menyetujui dua konsekuensi operasional berikut:
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+              <div class="p-5 bg-premium-850 rounded-xl border-2 border-steelblue-500/50">
+                <div class="text-xs font-mono text-steelblue-300 font-bold mb-2">KONSEKUENSI 1</div>
+                <h4 class="text-base font-bold text-white mb-2">Harus Siap Terus Berperang Harga</h4>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                  Karena pasar konter tidak peduli branding maupun fitur tambahan, Doripay wajib menyediakan harga modal yang setara atau lebih murah dari server lokal. Artinya margin kotor akan tetap tipis dan sewaktu-waktu harus siap melakukan subsidi harga agar konter tidak berpindah.
+                </p>
+              </div>
+
+              <div class="p-5 bg-premium-850 rounded-xl border-2 border-steelblue-500/50">
+                <div class="text-xs font-mono text-steelblue-300 font-bold mb-2">KONSEKUENSI 2</div>
+                <h4 class="text-base font-bold text-white mb-2">Harus Siap Bakar Biaya Akuisisi (CAC)</h4>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                  Untuk merebut konter dari kebiasaan lamanya, perusahaan harus terus mendanai biaya insentif sales yang tinggi, promo saldo awal, atau subsidi komisi. Volume transaksi harus didorong sangat masif untuk mengimbangi tipisnya margin per transaksi.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-4 bg-premium-850 rounded-xl border border-premium-800 text-xs text-slate-300 flex items-center justify-between">
+              <div>
+                <span class="font-bold text-white">Pertanyaan untuk Rapat Direksi:</span> Apakah posisi kas dan runway perusahaan saat ini siap mendanai perang harga dan CAC tinggi tersebut?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 6: MATRIKS KEPUTUSAN & PILIHAN ARAH -->
+        <div class="slide-page hidden" data-page="6" data-topic="Pilihan Keputusan Dewan Direksi">
+          <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">Matriks Keputusan Direksi & Komisaris</h3>
+          <p class="text-xs sm:text-sm text-slate-400 mb-6">
+            Dua jalur strategis yang dapat diputuskan dalam rapat hari ini:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <!-- JALUR A -->
+            <div class="p-5 bg-premium-850 rounded-xl border border-premium-800 flex flex-col justify-between">
+              <div>
+                <div class="inline-block px-2.5 py-0.5 rounded bg-premium-800 text-slate-300 font-mono text-xs font-bold mb-3">
+                  PILIHAN A: PIVOT / CUT COST
+                </div>
+                <h4 class="text-lg font-bold text-white mb-2">Hentikan Sales Canvassing Konter</h4>
+                <ul class="text-xs text-slate-400 space-y-2 mb-4 leading-relaxed">
+                  <li>• Menghapus pos anggaran operasional sales lapangan dan bensin.</li>
+                  <li>• Menghindari perang harga pulsa berdarah melawan provider langsung.</li>
+                  <li>• Mengalihkan fokus ke produk dengan margin lebih tebal (Top-Up Game, E-Wallet, B2B Mitra).</li>
+                </ul>
+              </div>
+              <div class="p-3 bg-premium-900 rounded-lg border border-premium-750 text-[11px] font-mono text-slate-400">
+                Hasil: Menyelamatkan cash runway perusahaan dari pembakaran modal tanpa hasil jangka panjang.
+              </div>
+            </div>
+
+            <!-- JALUR B -->
+            <div class="p-5 bg-premium-850 rounded-xl border border-steelblue-500/60 flex flex-col justify-between">
+              <div>
+                <div class="inline-block px-2.5 py-0.5 rounded bg-steelblue-900/60 text-steelblue-200 font-mono text-xs font-bold mb-3">
+                  PILIHAN B: BERTAHAN DENGAN SYARAT
+                </div>
+                <h4 class="text-lg font-bold text-white mb-2">Komitmen Perang Harga & Akuisisi Agresif</h4>
+                <ul class="text-xs text-slate-400 space-y-2 mb-4 leading-relaxed">
+                  <li>• Komisaris menyetujui alokasi dana subsidi harga dan biaya CAC sales.</li>
+                  <li>• Fokus penuh pada wilayah responsif: <strong>Kecamatan Sidomukti</strong> (konversi 16.7%).</li>
+                  <li>• Segera eksekusi janji temu pada <strong>11 konter follow-up</strong> (membawa daftar selisih harga riil).</li>
+                  <li>• Implementasi jalur transaksi cepat via format WhatsApp untuk menjawab kendala operasional.</li>
+                </ul>
+              </div>
+              <div class="p-3 bg-steelblue-950/50 rounded-lg border border-steelblue-800/60 text-[11px] font-mono text-steelblue-300">
+                Hasil: Penetrasi pasar dipertahankan dengan target volume masif dan komitmen modal yang jelas.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SLIDE BOTTOM NAV -->
+      <div class="flex items-center justify-between border-t border-premium-800/80 pt-4 mt-4">
+        <button id="btn-prev" onclick="prevSlide()" class="px-4 py-2 rounded-lg bg-premium-850 hover:bg-premium-800 border border-premium-800 text-xs font-semibold text-slate-300 transition-colors flex items-center gap-1.5 disabled:opacity-30 disabled:cursor-not-allowed">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          Slide Sebelumnya
+        </button>
+        <div class="flex items-center gap-1.5" id="slide-indicators">
+          <!-- Rendered via JS -->
+        </div>
+        <button id="btn-next" onclick="nextSlide()" class="px-4 py-2 rounded-lg bg-steelblue-500 hover:bg-steelblue-600 text-xs font-semibold text-white transition-colors flex items-center gap-1.5">
+          Slide Berikutnya
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ======================================================== -->
+  <!-- VIEW 2: FULL ANALYTICS DASHBOARD & DATABASE DIRECTORY    -->
+  <!-- ======================================================== -->
+  <div id="view-dash" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    
+    <!-- DASHBOARD HEADER -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-premium-800 pb-6">
+      <div>
+        <h2 class="text-2xl font-bold text-white tracking-tight">Audit Lengkap Penetrasi Konter Salatiga</h2>
+        <p class="text-sm text-slate-400 mt-1">Data gabungan respon Google Form dan log canvassing sales lapangan.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="text-xs font-mono text-slate-400 bg-premium-900 border border-premium-800 px-3 py-1.5 rounded-lg">
+          Terakhir Diperbarui: September 2026
+        </span>
       </div>
     </div>
 
-    <!-- KPI Metric Cards Grid -->
+    <!-- METRICS OVERVIEW -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      
-      <!-- Total Visited -->
-      <div class="glass-card rounded-xl p-5 relative group hover:border-indigo-500/40 transition duration-300">
-        <div class="flex items-center justify-between text-slate-400 mb-3">
-          <span class="text-xs font-semibold uppercase tracking-wider">Total Canvassing</span>
-          <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
-            <i class="fa-solid fa-store"></i>
-          </div>
-        </div>
-        <div class="text-3xl font-extrabold text-white tracking-tight">47</div>
-        <div class="mt-2 flex items-center text-xs text-slate-400">
-          <span class="text-blue-400 font-medium mr-1.5">100%</span> Konter di 4 Kecamatan
-        </div>
+      <div class="p-5 bg-premium-900 rounded-xl border border-premium-800">
+        <div class="text-xs font-mono text-slate-500 mb-1">Total Konter Diaudit</div>
+        <div class="text-3xl font-bold text-white font-mono">47</div>
+        <div class="text-xs text-slate-400 mt-2">Kunjungan lapangan acak</div>
       </div>
-
-      <!-- Closing -->
-      <div class="glass-card rounded-xl p-5 relative group hover:border-emerald-500/40 glow-emerald transition duration-300">
-        <div class="flex items-center justify-between text-slate-400 mb-3">
-          <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">Closing (Akusisi)</span>
-          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
-            <i class="fa-solid fa-circle-check"></i>
-          </div>
-        </div>
-        <div class="text-3xl font-extrabold text-emerald-400 tracking-tight">3 <span class="text-lg text-emerald-500/80 font-semibold">Konter</span></div>
-        <div class="mt-2 flex items-center text-xs text-slate-400">
-          <span class="text-emerald-400 font-bold mr-1.5">6.4%</span> Falin, Febry, & Berry Cell
-        </div>
+      <div class="p-5 bg-premium-900 rounded-xl border border-premium-800">
+        <div class="text-xs font-mono text-slate-500 mb-1">Closing (Daftar / Trx)</div>
+        <div class="text-3xl font-bold text-steelblue-400 font-mono">3</div>
+        <div class="text-xs text-steelblue-300/80 mt-2 font-mono">6.4% rasio keberhasilan</div>
       </div>
-
-      <!-- Prospek Follow Up -->
-      <div class="glass-card rounded-xl p-5 relative group hover:border-amber-500/40 transition duration-300">
-        <div class="flex items-center justify-between text-slate-400 mb-3">
-          <span class="text-xs font-semibold uppercase tracking-wider text-amber-400">Prospek Follow-Up</span>
-          <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400">
-            <i class="fa-solid fa-clock-rotate-left"></i>
-          </div>
-        </div>
-        <div class="text-3xl font-extrabold text-amber-400 tracking-tight">11 <span class="text-lg text-amber-500/80 font-semibold">Konter</span></div>
-        <div class="mt-2 flex items-center text-xs text-slate-400">
-          <span class="text-amber-400 font-bold mr-1.5">23.4%</span> Potensi Pindah Saldo
-        </div>
+      <div class="p-5 bg-premium-900 rounded-xl border border-premium-800">
+        <div class="text-xs font-mono text-slate-500 mb-1">Pipeline Prospek</div>
+        <div class="text-3xl font-bold text-amber-400 font-mono">11</div>
+        <div class="text-xs text-amber-300/80 mt-2 font-mono">23.4% perlu difollow-up</div>
       </div>
-
-      <!-- Penolakan -->
-      <div class="glass-card rounded-xl p-5 relative group hover:border-red-500/40 transition duration-300">
-        <div class="flex items-center justify-between text-slate-400 mb-3">
-          <span class="text-xs font-semibold uppercase tracking-wider text-rose-400">Tingkat Penolakan</span>
-          <div class="w-8 h-8 rounded-lg bg-rose-500/10 flex items-center justify-center text-rose-400">
-            <i class="fa-solid fa-ban"></i>
-          </div>
-        </div>
-        <div class="text-3xl font-extrabold text-rose-400 tracking-tight">33 <span class="text-lg text-rose-500/80 font-semibold">Konter</span></div>
-        <div class="mt-2 flex items-center text-xs text-slate-400">
-          <span class="text-rose-400 font-bold mr-1.5">70.2%</span> Resistensi Kompetitor
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Section 2: Visual Charts Row -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      
-      <!-- Chart 1: Funnel Konversi -->
-      <div class="glass-card rounded-xl p-6 flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-base font-bold text-white flex items-center gap-2">
-              <i class="fa-solid fa-filter text-indigo-400"></i> Sales Conversion Funnel
-            </h3>
-            <span class="text-xs text-slate-400 font-medium">Total 47 Konter</span>
-          </div>
-          <div class="relative h-56 flex items-center justify-center">
-            <canvas id="funnelChart"></canvas>
-          </div>
-        </div>
-        <div class="mt-4 pt-4 border-t border-slate-800/80 space-y-2 text-xs text-slate-300">
-          <div class="flex justify-between">
-            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Ditolak di Tempat:</span>
-            <strong class="text-white">33 konter (70.2%)</strong>
-          </div>
-          <div class="flex justify-between">
-            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> Pipeline Follow-Up:</span>
-            <strong class="text-white">11 konter (23.4%)</strong>
-          </div>
-          <div class="flex justify-between">
-            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span> Closing Transaksi:</span>
-            <strong class="text-emerald-400">3 konter (6.4%)</strong>
-          </div>
-        </div>
-      </div>
-
-      <!-- Chart 2: Analisis Wilayah (Kecamatan) -->
-      <div class="glass-card rounded-xl p-6 lg:col-span-2 flex flex-col justify-between">
-        <div>
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-            <h3 class="text-base font-bold text-white flex items-center gap-2">
-              <i class="fa-solid fa-map-location-dot text-emerald-400"></i> Performa Penetrasi per Kecamatan
-            </h3>
-            <span class="text-xs px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 font-semibold">
-              Sidomukti = Champion Area (16.7% Win Rate)
-            </span>
-          </div>
-          <div class="relative h-60">
-            <canvas id="locationChart"></canvas>
-          </div>
-        </div>
-        <div class="mt-4 pt-4 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center text-xs">
-          <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800">
-            <div class="text-slate-400">Sidomukti</div>
-            <div class="text-emerald-400 font-bold text-sm mt-0.5">16.7% Win</div>
-            <div class="text-[11px] text-slate-500">2 Closing, 5 FU</div>
-          </div>
-          <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800">
-            <div class="text-slate-400">Argomulyo</div>
-            <div class="text-blue-400 font-bold text-sm mt-0.5">7.7% Win</div>
-            <div class="text-[11px] text-slate-500">1 Closing, 3 FU</div>
-          </div>
-          <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800">
-            <div class="text-slate-400">Tingkir</div>
-            <div class="text-rose-400 font-bold text-sm mt-0.5">0% Win</div>
-            <div class="text-[11px] text-slate-500">0 Closing, 2 FU</div>
-          </div>
-          <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800">
-            <div class="text-slate-400">Sidorejo</div>
-            <div class="text-rose-400 font-bold text-sm mt-0.5">0% Win</div>
-            <div class="text-[11px] text-slate-500">0 Closing, 1 FU</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Section 3: Root Cause & Objection Breakdown -->
-    <div class="space-y-4">
-      <div class="flex items-center justify-between">
-        <div>
-          <h2 class="text-lg font-bold text-white flex items-center gap-2">
-            <i class="fa-solid fa-magnifying-glass-chart text-amber-400"></i> Bedah Akar Masalah: Mengapa Konter Menolak?
-          </h2>
-          <p class="text-xs text-slate-400">Diringkas dari catatan verbatim sales canvasser di lapangan</p>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-        
-        <!-- Card 1 -->
-        <div class="glass-card rounded-xl p-5 border-l-4 border-l-amber-500 relative">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-9 h-9 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg font-bold">
-              1
-            </div>
-            <h4 class="text-sm font-bold text-white leading-tight">Ketiadaan Pembeda & Butuh Jalur WhatsApp</h4>
-          </div>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            Pemilik konter merasa fitur Doripay identik dengan aplikasi yang sudah mereka gunakan. Catatan sales menegaskan: <em>"Top Komen: Konter mencari fitur transaksi via WhatsApp"</em> agar cepat tanpa perlu buka aplikasi tambahan.
-          </p>
-          <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-amber-300/80 flex items-center gap-1.5 font-medium">
-            <i class="fa-solid fa-lightbulb"></i> Fitur transaksi WA adalah kunci pembuka pintu.
-          </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="glass-card rounded-xl p-5 border-l-4 border-l-indigo-500 relative">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-9 h-9 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-lg font-bold">
-              2
-            </div>
-            <h4 class="text-sm font-bold text-white leading-tight">Kelelahan Aplikasi (App Fatigue) & Modal Terpecah</h4>
-          </div>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            Mayoritas konter sudah memegang 3 s/d 5 aplikasi aktif (Digipos, Rita, Bos Pulsa, ShopeePay, Mitra Bukalapak). Menambah 1 aplikasi baru artinya harus memecah saldo deposit yang membuat perputaran kasbon mereka makin rumit.
-          </p>
-          <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-indigo-300/80 flex items-center gap-1.5 font-medium">
-            <i class="fa-solid fa-lightbulb"></i> Jangan gantikan semua, ambil 1 ceruk spesifik.
-          </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="glass-card rounded-xl p-5 border-l-4 border-l-rose-500 relative">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-9 h-9 rounded-lg bg-rose-500/10 flex items-center justify-center text-rose-400 text-lg font-bold">
-              3
-            </div>
-            <h4 class="text-sm font-bold text-white leading-tight">Sensitivitas Selisih Margin Rp 100 - Rp 200</h4>
-          </div>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            Catatan sales di Argomulyo menunjukkan adanya "persaingan harga ketat". Konter loyal hingga 7 tahun ke server lokal karena selisih tipis dan ketakutan saldo mengendap jika mencoba aplikasi baru yang belum terkenal.
-          </p>
-          <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-rose-300/80 flex items-center gap-1.5 font-medium">
-            <i class="fa-solid fa-lightbulb"></i> Wajib bawa perbandingan harga modal resmi.
-          </div>
-        </div>
-
+      <div class="p-5 bg-premium-900 rounded-xl border border-premium-800">
+        <div class="text-xs font-mono text-slate-500 mb-1">Tingkat Penolakan</div>
+        <div class="text-3xl font-bold text-rose-400 font-mono">33</div>
+        <div class="text-xs text-rose-400/80 mt-2 font-mono">70.2% menolak di tempat</div>
       </div>
     </div>
 
-    <!-- Section 4: Demand Produk & Peta Kompetitor -->
+    <!-- CHARTS ROW -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      
-      <!-- Produk Terlaris -->
-      <div class="glass-card rounded-xl p-6">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-base font-bold text-white flex items-center gap-2">
-            <i class="fa-solid fa-fire text-amber-400"></i> Demand Konter: 4 Produk Paling Laris
-          </h3>
-          <span class="text-xs text-slate-400">Catatan Memo Lapangan</span>
-        </div>
-        <div class="space-y-3.5">
-          <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center font-bold text-sm">#1</div>
-              <div>
-                <h4 class="text-sm font-semibold text-white">Pulsa Reguler</h4>
-                <p class="text-xs text-slate-400">Frekuensi transaksi tertinggi setiap hari</p>
-              </div>
-            </div>
-            <span class="text-xs px-2.5 py-1 rounded bg-blue-500/20 text-blue-300 font-semibold">High Volume</span>
-          </div>
-
-          <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-sm">#2</div>
-              <div>
-                <h4 class="text-sm font-semibold text-white">Top Up Saldo E-Wallet</h4>
-                <p class="text-xs text-slate-400">DANA, ShopeePay, GoPay (Margin tebal & stabil)</p>
-              </div>
-            </div>
-            <span class="text-xs px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 font-semibold">Pintu Masuk Utama</span>
-          </div>
-
-          <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold text-sm">#3</div>
-              <div>
-                <h4 class="text-sm font-semibold text-white">Paketan Data / Kuota</h4>
-                <p class="text-xs text-slate-400">Telkomsel, Indosat, XL, Tri</p>
-              </div>
-            </div>
-            <span class="text-xs px-2.5 py-1 rounded bg-indigo-500/20 text-indigo-300 font-semibold">Fast Moving</span>
-          </div>
-
-          <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold text-sm">#4</div>
-              <div>
-                <h4 class="text-sm font-semibold text-white">Top Up Game Online</h4>
-                <p class="text-xs text-slate-400">Mobile Legends, Free Fire, Roblox</p>
-              </div>
-            </div>
-            <span class="text-xs px-2.5 py-1 rounded bg-purple-500/20 text-purple-300 font-semibold">Margin Tinggi</span>
-          </div>
+      <div class="bg-premium-900 border border-premium-800 rounded-xl p-5">
+        <h3 class="text-sm font-bold text-white mb-1 flex items-center justify-between">
+          <span>Tingkat Efektivitas per Kecamatan</span>
+          <span class="text-xs font-mono text-steelblue-400">Sidomukti Tertinggi (16.7%)</span>
+        </h3>
+        <p class="text-xs text-slate-400 mb-4">Perbandingan rasio closing dan penolakan antar wilayah.</p>
+        <div class="h-64">
+          <canvas id="chart-district"></canvas>
         </div>
       </div>
 
-      <!-- Kompetitor -->
-      <div class="glass-card rounded-xl p-6 flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-base font-bold text-white flex items-center gap-2">
-              <i class="fa-solid fa-shield-halved text-rose-400"></i> Peta Penguasaan Kompetitor di Lapangan
-            </h3>
-            <span class="text-xs text-slate-400">PPOB Dominan</span>
-          </div>
-          <div class="relative h-56 flex items-center justify-center">
-            <canvas id="competitorChart"></canvas>
-          </div>
+      <div class="bg-premium-900 border border-premium-800 rounded-xl p-5">
+        <h3 class="text-sm font-bold text-white mb-1 flex items-center justify-between">
+          <span>Peta Penguasaan Kompetitor di Konter</span>
+          <span class="text-xs font-mono text-slate-400">45% Kuasai Provider Direct</span>
+        </h3>
+        <p class="text-xs text-slate-400 mb-4">Layanan atau aplikasi eksisting yang dominan dipakai pemilik konter.</p>
+        <div class="h-64 flex justify-center">
+          <canvas id="chart-competitor"></canvas>
         </div>
-        <p class="text-xs text-slate-400 mt-4 leading-relaxed bg-slate-900/50 p-3 rounded-lg border border-slate-800">
-          <strong class="text-slate-200">Temuan Strategis:</strong> Konter tidak akan memutus koneksi langsung dengan Provider resmi (Digipos/Rita). Peluang Doripay merebut pasar adalah menjadi <em>partner alternatif untuk E-Wallet & Game</em> yang sering kali di aplikasi provider harganya lebih mahal atau tidak lengkap.
-        </p>
       </div>
-
     </div>
 
-    <!-- Section 5: Strategic Decision Matrix (Komisaris Level) -->
-    <div id="decision-matrix" class="glass-card-highlight rounded-2xl p-6 lg:p-8 space-y-6">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <!-- DIRECTORY & TABLE -->
+    <div class="bg-premium-900 border border-premium-800 rounded-xl p-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
         <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 text-xs font-semibold mb-2">
-            <i class="fa-solid fa-gavel"></i> MATRIKS KEPUTUSAN DIREKSI & KOMISARIS
-          </div>
-          <h2 class="text-xl lg:text-2xl font-bold text-white">Pilihan Tindakan Strategis Doripay Salatiga</h2>
+          <h3 class="text-base font-bold text-white">Direktori Database 47 Konter</h3>
+          <p class="text-xs text-slate-400 mt-0.5">Filter berdasarkan status hasil kunjungan atau wilayah.</p>
         </div>
-        <div class="flex items-center gap-2 bg-slate-900/90 p-1 rounded-xl border border-slate-800">
-          <button id="btnOptB" onclick="switchOption('B')" class="px-4 py-2 rounded-lg text-xs font-bold transition bg-indigo-600 text-white shadow-md">
-            Opsi B: Bertahan & Terarah (Rekomendasi)
-          </button>
-          <button id="btnOptA" onclick="switchOption('A')" class="px-4 py-2 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white">
-            Opsi A: Pivot / Stop Canvassing
-          </button>
-        </div>
-      </div>
-
-      <!-- Option B Content (Recommended) -->
-      <div id="contentOptB" class="space-y-6">
-        <div class="bg-indigo-950/40 border border-indigo-500/30 rounded-xl p-5">
-          <div class="flex items-center gap-2 text-indigo-400 font-bold text-sm mb-1">
-            <i class="fa-solid fa-circle-check"></i> REKOMENDASI MANAJEMEN: PENETRASI TERFOKUS (CARA BERTAHAN)
-          </div>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            Jangan mundur total, tetapi <strong>hentikan sales kanvasing dingin tanpa strategi</strong>. Terapkan 4 pilar bertahan yang dicatat langsung dari evaluasi lapangan:
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-          
-          <div class="glass-card p-4 rounded-xl border border-slate-800 space-y-2">
-            <div class="flex items-center gap-2 font-bold text-white text-sm">
-              <span class="w-6 h-6 rounded bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs">1</span>
-              Konsolidasi Wilayah (Sidomukti First)
-            </div>
-            <p class="text-slate-300 leading-relaxed">
-              Alokasikan 80% armada lapangan hanya ke <strong>Sidomukti & Argomulyo</strong>. Hentikan kunjungan acak di Sidorejo dan Tingkir untuk memangkas operasional bensin dan waktu hingga 45%.
-            </p>
-          </div>
-
-          <div class="glass-card p-4 rounded-xl border border-slate-800 space-y-2">
-            <div class="flex items-center gap-2 font-bold text-white text-sm">
-              <span class="w-6 h-6 rounded bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xs">2</span>
-              Strategi Kuda Troya (E-Wallet & Top Up Game)
-            </div>
-            <p class="text-slate-300 leading-relaxed">
-              Jangan suruh konter menghapus aplikasi lama mereka. Tawarkan Doripay khusus untuk pengisian <strong>Saldo DANA/ShopeePay</strong> dan <strong>Voucher Game</strong> yang harganya kita buat lebih miring Rp 50 - Rp 100 dibanding Bos Pulsa.
-            </p>
-          </div>
-
-          <div class="glass-card p-4 rounded-xl border border-slate-800 space-y-2">
-            <div class="flex items-center gap-2 font-bold text-white text-sm">
-              <span class="w-6 h-6 rounded bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs">3</span>
-              Eksekusi Agresif 11 Konter Follow-Up
-            </div>
-            <p class="text-slate-300 leading-relaxed">
-              Kunjungi kembali pemilik konter (Ibu Helena - Sumber Artha, Ibu Yuyun - 88 Cell, Master Cell, Star Cell) dengan membawa <em>One-Sheet Price Comparison</em> (bukti margin Doripay lebih untung).
-            </p>
-          </div>
-
-          <div class="glass-card p-4 rounded-xl border border-slate-800 space-y-2">
-            <div class="flex items-center gap-2 font-bold text-white text-sm">
-              <span class="w-6 h-6 rounded bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xs">4</span>
-              Digital Branding Mikro & Fitur WA
-            </div>
-            <p class="text-slate-300 leading-relaxed">
-              Pasang iklan mikro online berbasis radius 5km di Salatiga agar brand familiar di mata pemilik konter sebelum sales datang, serta prioritaskan rilis fitur transaksi via WhatsApp.
-            </p>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Option A Content (Cut Cost) -->
-      <div id="contentOptA" class="hidden space-y-4">
-        <div class="bg-rose-950/40 border border-rose-500/30 rounded-xl p-5">
-          <div class="flex items-center gap-2 text-rose-400 font-bold text-sm mb-1">
-            <i class="fa-solid fa-triangle-exclamation"></i> OPSI ALTERNATIF: FREEZE CANVASSING & CUT OPERATIONAL COST
-          </div>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            Hentikan seluruh aktivitas door-to-door canvassing di Salatiga karena tingkat penolakan 70.2% dinilai terlalu membebani kas perusahaan jika dihitung terhadap Customer Acquisition Cost (CAC) per konter.
-          </p>
-        </div>
-        <div class="glass-card p-5 rounded-xl border border-slate-800 text-xs text-slate-300 space-y-3">
-          <h4 class="font-bold text-white text-sm">Konsekuensi Opsi A:</h4>
-          <ul class="list-disc list-inside space-y-1.5 text-slate-400">
-            <li>Zero operational burn untuk operasional motor, uang makan, dan insentif sales lapangan.</li>
-            <li>Hanya melayani 3 konter yang sudah aktif (Falin, Febry, Berry Cell) secara organik.</li>
-            <li>Mengorbankan 11 konter prospek follow-up (23.4%) yang berpeluang diambil kompetitor lain.</li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Section 6: Interactive Konter Database -->
-    <div class="glass-card rounded-2xl p-6 lg:p-8 space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h3 class="text-lg font-bold text-white flex items-center gap-2">
-            <i class="fa-solid fa-database text-indigo-400"></i> Direktori Database Kunjungan Konter
-          </h3>
-          <p class="text-xs text-slate-400">Data riil 47 konter &bull; Diperkaya kontak telepon & catatan follow-up</p>
-        </div>
-
-        <!-- Filter & Search Bar -->
         <div class="flex flex-wrap items-center gap-2">
-          <div class="relative">
-            <input type="text" id="searchKonter" onkeyup="filterTable()" placeholder="Cari konter, PIC, nomor WA..." 
-                   class="bg-slate-900 border border-slate-700 rounded-lg pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 w-56">
-            <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2 text-slate-500 text-xs"></i>
-          </div>
-          <select id="statusFilter" onchange="filterTable()" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-indigo-500">
+          <input type="text" id="search-input" onkeyup="filterCounters()" placeholder="Cari nama konter / kontak..." class="px-3 py-1.5 rounded-lg bg-premium-950 border border-premium-800 text-xs text-slate-200 focus:outline-none focus:border-steelblue-400 w-48 sm:w-56" />
+          <select id="filter-status" onchange="filterCounters()" class="px-3 py-1.5 rounded-lg bg-premium-950 border border-premium-800 text-xs text-slate-200 focus:outline-none focus:border-steelblue-400">
             <option value="ALL">Semua Status</option>
-            <option value="CLOSING">Closing (3)</option>
-            <option value="FU">Perlu Follow-Up (11)</option>
-            <option value="TOLAK">Tidak Tertarik (33)</option>
+            <option value="CLOSING">Closing (Daftar / Trx)</option>
+            <option value="FOLLOWUP">Perlu Follow-Up</option>
+            <option value="TOLAK">Tidak Tertarik</option>
           </select>
-          <select id="kecamatanFilter" onchange="filterTable()" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-indigo-500">
+          <select id="filter-district" onchange="filterCounters()" class="px-3 py-1.5 rounded-lg bg-premium-950 border border-premium-800 text-xs text-slate-200 focus:outline-none focus:border-steelblue-400">
             <option value="ALL">Semua Kecamatan</option>
             <option value="Sidomukti">Sidomukti</option>
             <option value="Argomulyo">Argomulyo</option>
@@ -540,218 +511,147 @@
         </div>
       </div>
 
-      <!-- Table Container -->
-      <div class="overflow-x-auto rounded-xl border border-slate-800">
-        <table class="w-full text-left text-xs text-slate-300">
-          <thead class="bg-slate-900/90 text-slate-400 font-semibold uppercase tracking-wider border-b border-slate-800">
+      <!-- TABLE -->
+      <div class="overflow-x-auto custom-scroll border border-premium-800 rounded-lg">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-premium-950 text-slate-400 border-b border-premium-800 font-mono">
             <tr>
-              <th class="py-3.5 px-4">Konter / Usaha</th>
-              <th class="py-3.5 px-3">Kecamatan</th>
-              <th class="py-3.5 px-3">Aplikasi Eksisting</th>
-              <th class="py-3.5 px-3">Status Respon</th>
-              <th class="py-3.5 px-4">Kontak & PIC</th>
-              <th class="py-3.5 px-4">Catatan Lapangan</th>
+              <th class="py-3 px-4">Nama Konter</th>
+              <th class="py-3 px-4">Kecamatan</th>
+              <th class="py-3 px-4">Aplikasi Eksisting</th>
+              <th class="py-3 px-4">Status Kunjungan</th>
+              <th class="py-3 px-4">Kontak / PIC</th>
+              <th class="py-3 px-4">Catatan Singkat</th>
             </tr>
           </thead>
-          <tbody id="tableBody" class="divide-y divide-slate-800/60 bg-slate-950/40">
-            <!-- Injected by JavaScript -->
+          <tbody id="counter-table-body" class="divide-y divide-premium-800/60 font-sans">
+            <!-- Rendered via JS -->
           </tbody>
         </table>
       </div>
-      <div id="tableCount" class="text-xs text-slate-400 text-right">Menampilkan 47 dari 47 konter</div>
+      <div class="mt-3 flex items-center justify-between text-xs text-slate-500 font-mono">
+        <span id="counter-count">Menampilkan 47 dari 47 konter</span>
+      </div>
     </div>
 
-  </main>
+  </div>
 
-  <!-- Footer -->
-  <footer class="border-t border-slate-900 glass-card py-6 px-4 text-center text-xs text-slate-500">
-    <p>&copy; 2026 Doripay Financial Technologies &bull; Generated from Field Sales Logs for Executive Decision Making.</p>
-  </footer>
-
-  <!-- Pass Records Data into JavaScript -->
+  <!-- RAW DATA EMBEDDED -->
   <script>
-    const rawRecords = [{"nama": "juragan 17 cell", "kecamatan": "Sidorejo", "apk": "ada boss, aplikasi xl dan lain lain ga disebutin lagii", "status": "Tidak tertarik", "wa": "-", "catatan": "sudah nyaman dengan aplikasi lama, takutnya bila menggunakan aplikasi baru nanti tidak terpakai, karna sudah ada beberapa sales yang menawarkan produk digitalnya", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "10-15", "produk_laris": "top up saldo, pulsa, paketan"}, {"nama": "zipcell", "kecamatan": "Sidorejo", "apk": "ada shoppe, dll", "status": "Tidak tertarik", "wa": "-", "catatan": "ditolak, karna beliau pernah membandingkan antara aplikasi satu dengan yang lain dan hasilnya, lebih nyaman menggunakan aplikasi yang lama", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "tidak diberi tau", "produk_laris": "tidak diberi tau"}, {"nama": "moncer cell", "kecamatan": "Sidomukti", "apk": "aplikasinya mitra bukalapak", "status": "Perlu follow-up", "wa": "085743766663", "catatan": "hrus nunggu pemilik dulu", "tgl_fu": "03/09/2026", "tujuan_fu": "Bertemu pemilik", "trx_hari": "10-20", "produk_laris": "-"}, {"nama": "Konter Tanpa Nama", "kecamatan": "Sidomukti", "apk": "dana, shoppepay, provider", "status": "Tidak tertarik", "wa": "-", "catatan": "sudah terbiasa menggunakan aplikasi provider karena dirasa lebih murah", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "banyakkk", "produk_laris": "dana, kuota, paketan"}, {"nama": "trii cell", "kecamatan": "Tingkir", "apk": "aplikasi provider", "status": "Tidak tertarik", "wa": "-", "catatan": "pemilik suda memiliki akun provider, yang dirasa lebih murah", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "tergantung", "produk_laris": "pulsa"}, {"nama": "star cell", "kecamatan": "Sidomukti", "apk": "provider", "status": "Perlu follow-up", "wa": "089688789876", "catatan": "Sedang memahami apk Doripay", "tgl_fu": "", "tujuan_fu": "Bantu pendaftaran", "trx_hari": "tergantung", "produk_laris": "tergantung"}, {"nama": "rizal cell", "kecamatan": "Argomulyo", "apk": "shoppe pay", "status": "Tidak tertarik", "wa": "", "catatan": "persaingan harga", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "tergantung", "produk_laris": "pulsa dan top up game"}, {"nama": "berry cell", "kecamatan": "Sidomukti", "apk": "shoppe pay", "status": "Daftar Doripay", "wa": "085122770354", "catatan": "tertarik dengan fitur, minta ditambah kan fitur tf ke bank", "tgl_fu": "", "tujuan_fu": "Bantu deposit/transaksi", "trx_hari": "30 an", "produk_laris": "top up dana, pulsa"}, {"nama": "master cell", "kecamatan": "Sidomukti", "apk": "provider", "status": "Perlu follow-up", "wa": "085799802345", "catatan": "perlu follow up pemilik", "tgl_fu": "", "tujuan_fu": "Bertemu pemilik", "trx_hari": "", "produk_laris": ""}, {"nama": "sumber artha cell", "kecamatan": "Sidomukti", "apk": "blm tau", "status": "Perlu follow-up", "wa": "081391264017 (Ibu Helena)", "catatan": "", "tgl_fu": "", "tujuan_fu": "Bertemu pemilik", "trx_hari": "", "produk_laris": ""}, {"nama": "nvn cell", "kecamatan": "Sidomukti", "apk": "e-blanja", "status": "Tidak tertarik", "wa": "", "catatan": "sudah memiliki banyak apk", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "ulfa cell", "kecamatan": "Sidomukti", "apk": "ditolak :)", "status": "Tidak tertarik", "wa": "-", "catatan": "ditolak", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "falin cell", "kecamatan": "Sidomukti", "apk": "epulsa", "status": "Sudah transaksi Doripay", "wa": "", "catatan": "tertarik", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "ip cell", "kecamatan": "Sidorejo", "apk": "e blanja", "status": "Perlu follow-up", "wa": "", "catatan": "mau mempelajari terlebih dahulu", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "Rpm cell", "kecamatan": "Argomulyo", "apk": "provider", "status": "Perlu follow-up", "wa": "", "catatan": "belum familiar", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "tri cell", "kecamatan": "Argomulyo", "apk": "bos pulsa", "status": "Tidak tertarik", "wa": "", "catatan": "belum terlalu mengenal doripay", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "lindhae cell", "kecamatan": "Tingkir", "apk": "bos pulsa langganan 7 tahun :)", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "88 cell", "kecamatan": "Sidomukti", "apk": "banyak aplikasi", "status": "Perlu follow-up", "wa": "085741318888 (Ibu Yuyun)", "catatan": "Ibu Yuyun sedang mempelajari doripay", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "arjuna cell", "kecamatan": "Sidomukti", "apk": "provider karna sering ada promo", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "mahkota cell", "kecamatan": "Argomulyo", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "T cell", "kecamatan": "Argomulyo", "apk": "buka lapak, provider", "status": "Perlu follow-up", "wa": "0895703177201", "catatan": "mau bilng sm atasan dl", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "astro cell", "kecamatan": "Argomulyo", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "c vas cell", "kecamatan": "Argomulyo", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "marui cell", "kecamatan": "Argomulyo", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "langsung ditolak", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "tegalrejo cell", "kecamatan": "Argomulyo", "apk": "provider", "status": "Perlu follow-up", "wa": "", "catatan": "blm bertemu pemilik", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "febry cell", "kecamatan": "Argomulyo", "apk": "provider dll", "status": "Sudah transaksi Doripay", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "dian cell", "kecamatan": "Sidomukti", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "kena usir :)", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "abdi cell", "kecamatan": "Argomulyo", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "dari apk dimodalin dl", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "izzi cell", "kecamatan": "Sidorejo", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "elje cell", "kecamatan": "Tingkir", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "bilang ke yang punya dlu", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "alva cell", "kecamatan": "Tingkir", "apk": "bos pulsa", "status": "Perlu follow-up", "wa": "", "catatan": "bilang ke pemilik dlu", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "agen46", "kecamatan": "Argomulyo", "apk": "bri link", "status": "Tidak tertarik", "wa": "", "catatan": "menunggu pemilik dulu", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "chim chomp cell", "kecamatan": "Argomulyo", "apk": "banyak aplikasi", "status": "Tidak tertarik", "wa": "", "catatan": "sedikit tertarik", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "sal cell", "kecamatan": "Tingkir", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "katanyaa biar terkenal dulu, nanti kl uda terkenal aku ikutan nyobaa \ud83d\ude14", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "putra jaya cell", "kecamatan": "Tingkir", "apk": "shoppe dll", "status": "Perlu follow-up", "wa": "", "catatan": "masih ingin mencari tau", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "boss cell", "kecamatan": "Tingkir", "apk": "bos pulsa, shoppe", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "mahkota cell beda ama yg kemarin", "kecamatan": "Sidorejo", "apk": "top depay", "status": "Tidak tertarik", "wa": "", "catatan": "sudah nyaman menggunakan aplikasi provider dan top depay", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "blessy cell", "kecamatan": "Tingkir", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "kaya operator pada umumnya (sama)", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "lunar cell", "kecamatan": "Sidorejo", "apk": "mitra", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "bonk cell", "kecamatan": "Sidorejo", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "infinity cell", "kecamatan": "Sidorejo", "apk": "bos pulsa", "status": "Tidak tertarik", "wa": "", "catatan": "dibicarakan lagi dengan kluarga", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "bsm cell", "kecamatan": "Tingkir", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "pp cell", "kecamatan": "Tingkir", "apk": "mitra", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "Bless Cell", "kecamatan": "Salatiga", "apk": "Server lama", "status": "Tidak tertarik", "wa": "", "catatan": "Menolak - merasa sudah nyaman", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "Chimp Chomp Cell", "kecamatan": "Salatiga", "apk": "Server lama", "status": "Tidak tertarik", "wa": "", "catatan": "Menolak - belum familiar", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "Agen 46", "kecamatan": "Salatiga", "apk": "BNI Agen 46 / Provider", "status": "Tidak tertarik", "wa": "", "catatan": "Sudah punya keagenan bank", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "CVAS Cell", "kecamatan": "Salatiga", "apk": "Server lama", "status": "Tidak tertarik", "wa": "", "catatan": "Menolak - membandingkan fitur", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}];
+    const RAW_RECORDS = [{"nama": "juragan 17 cell", "kecamatan": "Sidorejo", "apk": "ada boss, aplikasi xl dan lain lain ga disebutin lagii", "status": "Tidak tertarik", "wa": "-", "catatan": "sudah nyaman dengan aplikasi lama, takutnya bila menggunakan aplikasi baru nanti tidak terpakai, karna sudah ada beberapa sales yang menawarkan produk digitalnya", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "10-15", "produk_laris": "top up saldo, pulsa, paketan"}, {"nama": "zipcell", "kecamatan": "Sidorejo", "apk": "ada shoppe, dll", "status": "Tidak tertarik", "wa": "-", "catatan": "ditolak, karna beliau pernah membandingkan antara aplikasi satu dengan yang lain dan hasilnya, lebih nyaman menggunakan aplikasi yang lama", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "tidak diberi tau", "produk_laris": "tidak diberi tau"}, {"nama": "moncer cell", "kecamatan": "Sidomukti", "apk": "aplikasinya mitra bukalapak", "status": "Perlu follow-up", "wa": "085743766663", "catatan": "hrus nunggu pemilik dulu", "tgl_fu": "03/09/2026", "tujuan_fu": "Bertemu pemilik", "trx_hari": "10-20", "produk_laris": "-"}, {"nama": "Konter Tanpa Nama", "kecamatan": "Sidomukti", "apk": "dana, shoppepay, provider", "status": "Tidak tertarik", "wa": "-", "catatan": "sudah terbiasa menggunakan aplikasi provider karena dirasa lebih murah", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "banyakkk", "produk_laris": "dana, kuota, paketan"}, {"nama": "trii cell", "kecamatan": "Tingkir", "apk": "aplikasi provider", "status": "Tidak tertarik", "wa": "-", "catatan": "pemilik suda memiliki akun provider, yang dirasa lebih murah", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "tergantung", "produk_laris": "pulsa"}, {"nama": "star cell", "kecamatan": "Sidomukti", "apk": "provider", "status": "Perlu follow-up", "wa": "089688789876", "catatan": "Sedang memahami apk Doripay", "tgl_fu": "", "tujuan_fu": "Bantu pendaftaran", "trx_hari": "tergantung", "produk_laris": "tergantung"}, {"nama": "rizal cell", "kecamatan": "Argomulyo", "apk": "shoppe pay", "status": "Tidak tertarik", "wa": "", "catatan": "persaingan harga", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "tergantung", "produk_laris": "pulsa dan top up game"}, {"nama": "berry cell", "kecamatan": "Sidomukti", "apk": "shoppe pay", "status": "Daftar Doripay", "wa": "085122770354", "catatan": "tertarik dengan fitur, minta ditambah kan fitur tf ke bank", "tgl_fu": "", "tujuan_fu": "Bantu deposit/transaksi", "trx_hari": "30 an", "produk_laris": "top up dana, pulsa"}, {"nama": "master cell", "kecamatan": "Sidomukti", "apk": "provider", "status": "Perlu follow-up", "wa": "085799802345", "catatan": "perlu follow up pemilik", "tgl_fu": "", "tujuan_fu": "Bertemu pemilik", "trx_hari": "", "produk_laris": ""}, {"nama": "sumber artha cell", "kecamatan": "Sidomukti", "apk": "blm tau", "status": "Perlu follow-up", "wa": "081391264017 (Ibu Helena)", "catatan": "", "tgl_fu": "", "tujuan_fu": "Bertemu pemilik", "trx_hari": "", "produk_laris": ""}, {"nama": "nvn cell", "kecamatan": "Sidomukti", "apk": "e-blanja", "status": "Tidak tertarik", "wa": "", "catatan": "sudah memiliki banyak apk", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "ulfa cell", "kecamatan": "Sidomukti", "apk": "ditolak :)", "status": "Tidak tertarik", "wa": "-", "catatan": "ditolak", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "falin cell", "kecamatan": "Sidomukti", "apk": "epulsa", "status": "Sudah transaksi Doripay", "wa": "", "catatan": "tertarik", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "ip cell", "kecamatan": "Sidorejo", "apk": "e blanja", "status": "Perlu follow-up", "wa": "", "catatan": "mau mempelajari terlebih dahulu", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "Rpm cell", "kecamatan": "Argomulyo", "apk": "provider", "status": "Perlu follow-up", "wa": "", "catatan": "belum familiar", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "tri cell", "kecamatan": "Argomulyo", "apk": "bos pulsa", "status": "Tidak tertarik", "wa": "", "catatan": "belum terlalu mengenal doripay", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "lindhae cell", "kecamatan": "Tingkir", "apk": "bos pulsa langganan 7 tahun :)", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "88 cell", "kecamatan": "Sidomukti", "apk": "banyak aplikasi", "status": "Perlu follow-up", "wa": "085741318888 (Ibu Yuyun)", "catatan": "Ibu Yuyun sedang mempelajari doripay", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "arjuna cell", "kecamatan": "Sidomukti", "apk": "provider karna sering ada promo", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "mahkota cell", "kecamatan": "Argomulyo", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "T cell", "kecamatan": "Argomulyo", "apk": "buka lapak, provider", "status": "Perlu follow-up", "wa": "0895703177201", "catatan": "mau bilng sm atasan dl", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "astro cell", "kecamatan": "Argomulyo", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "c vas cell", "kecamatan": "Argomulyo", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "marui cell", "kecamatan": "Argomulyo", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "langsung ditolak", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "tegalrejo cell", "kecamatan": "Argomulyo", "apk": "provider", "status": "Perlu follow-up", "wa": "", "catatan": "blm bertemu pemilik", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "febry cell", "kecamatan": "Argomulyo", "apk": "provider dll", "status": "Sudah transaksi Doripay", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "dian cell", "kecamatan": "Sidomukti", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "kena usir :)", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "abdi cell", "kecamatan": "Argomulyo", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "dari apk dimodalin dl", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "izzi cell", "kecamatan": "Sidorejo", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "elje cell", "kecamatan": "Tingkir", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "bilang ke yang punya dlu", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "alva cell", "kecamatan": "Tingkir", "apk": "bos pulsa", "status": "Perlu follow-up", "wa": "", "catatan": "bilang ke pemilik dlu", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "agen46", "kecamatan": "Argomulyo", "apk": "bri link", "status": "Tidak tertarik", "wa": "", "catatan": "menunggu pemilik dulu", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "chim chomp cell", "kecamatan": "Argomulyo", "apk": "banyak aplikasi", "status": "Tidak tertarik", "wa": "", "catatan": "sedikit tertarik", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "sal cell", "kecamatan": "Tingkir", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "katanyaa biar terkenal dulu, nanti kl uda terkenal aku ikutan nyobaa \ud83d\ude14", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "putra jaya cell", "kecamatan": "Tingkir", "apk": "shoppe dll", "status": "Perlu follow-up", "wa": "", "catatan": "masih ingin mencari tau", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "boss cell", "kecamatan": "Tingkir", "apk": "bos pulsa, shoppe", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "mahkota cell beda ama yg kemarin", "kecamatan": "Sidorejo", "apk": "top depay", "status": "Tidak tertarik", "wa": "", "catatan": "sudah nyaman menggunakan aplikasi provider dan top depay", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "blessy cell", "kecamatan": "Tingkir", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "kaya operator pada umumnya (sama)", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "lunar cell", "kecamatan": "Sidorejo", "apk": "mitra", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "bonk cell", "kecamatan": "Sidorejo", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "infinity cell", "kecamatan": "Sidorejo", "apk": "bos pulsa", "status": "Tidak tertarik", "wa": "", "catatan": "dibicarakan lagi dengan kluarga", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "bsm cell", "kecamatan": "Tingkir", "apk": "provider", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "pp cell", "kecamatan": "Tingkir", "apk": "mitra", "status": "Tidak tertarik", "wa": "", "catatan": "", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "Bless Cell", "kecamatan": "Salatiga", "apk": "Server lama", "status": "Tidak tertarik", "wa": "", "catatan": "Menolak - merasa sudah nyaman", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "Chimp Chomp Cell", "kecamatan": "Salatiga", "apk": "Server lama", "status": "Tidak tertarik", "wa": "", "catatan": "Menolak - belum familiar", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "Agen 46", "kecamatan": "Salatiga", "apk": "BNI Agen 46 / Provider", "status": "Tidak tertarik", "wa": "", "catatan": "Sudah punya keagenan bank", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}, {"nama": "CVAS Cell", "kecamatan": "Salatiga", "apk": "Server lama", "status": "Tidak tertarik", "wa": "", "catatan": "Menolak - membandingkan fitur", "tgl_fu": "", "tujuan_fu": "", "trx_hari": "", "produk_laris": ""}];
+    let currentSlide = 1;
+    const totalSlides = 6;
 
-    function classifyStatus(status) {
-      const s = (status || '').toLowerCase();
-      if (s.includes('transaksi') || s.includes('daftar doripay')) return 'CLOSING';
-      if (s.includes('follow-up') || s.includes('follow up') || s.includes('perlu follow')) return 'FU';
-      return 'TOLAK';
-    }
+    // SWITCH VIEW
+    function switchView(mode) {
+      const slideView = document.getElementById('view-slide');
+      const dashView = document.getElementById('view-dash');
+      const btnSlide = document.getElementById('btn-mode-slide');
+      const btnDash = document.getElementById('btn-mode-dash');
 
-    function renderTable(data) {
-      const tbody = document.getElementById('tableBody');
-      tbody.innerHTML = '';
-
-      if (data.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" class="py-8 text-center text-slate-500">Tidak ada data konter yang sesuai filter.</td></tr>';
-        document.getElementById('tableCount').innerText = '0 konter ditemukan';
-        return;
-      }
-
-      data.forEach(r => {
-        const cat = classifyStatus(r.status);
-        let badgeHtml = '';
-        if (cat === 'CLOSING') {
-          badgeHtml = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold badge-closing"><i class="fa-solid fa-circle-check text-[9px]"></i> ' + r.status + '</span>';
-        } else if (cat === 'FU') {
-          badgeHtml = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold badge-fu"><i class="fa-solid fa-clock-rotate-left text-[9px]"></i> Perlu Follow-Up</span>';
-        } else {
-          badgeHtml = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold badge-tolak"><i class="fa-solid fa-circle-xmark text-[9px]"></i> Tidak Tertarik</span>';
-        }
-
-        let contactHtml = '-';
-        if (r.wa && r.wa.trim() !== '' && r.wa.trim() !== '-') {
-          contactHtml = '<div class="flex items-center gap-1.5 text-slate-200 font-medium"><i class="fa-brands fa-whatsapp text-emerald-400"></i><span>' + r.wa + '</span></div>';
-        }
-
-        let noteHtml = r.catatan || '-';
-        if (r.tujuan_fu) {
-          noteHtml += ' <span class="text-amber-400 font-medium">[Target: ' + r.tujuan_fu + ']</span>';
-        }
-
-        const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-900/60 transition';
-        tr.innerHTML = `
-          <td class="py-3 px-4 font-semibold text-white capitalize">${r.nama}</td>
-          <td class="py-3 px-3 text-slate-300">${r.kecamatan}</td>
-          <td class="py-3 px-3 text-slate-400 truncate max-w-[150px]" title="${r.apk}">${r.apk}</td>
-          <td class="py-3 px-3">${badgeHtml}</td>
-          <td class="py-3 px-4">${contactHtml}</td>
-          <td class="py-3 px-4 text-slate-400 max-w-[280px]">${noteHtml}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-
-      document.getElementById('tableCount').innerText = 'Menampilkan ' + data.length + ' dari ' + rawRecords.length + ' konter';
-    }
-
-    function filterTable() {
-      const q = document.getElementById('searchKonter').value.toLowerCase();
-      const st = document.getElementById('statusFilter').value;
-      const kec = document.getElementById('kecamatanFilter').value;
-
-      const filtered = rawRecords.filter(r => {
-        const cat = classifyStatus(r.status);
-        const matchQ = (r.nama || '').toLowerCase().includes(q) || 
-                       (r.catatan || '').toLowerCase().includes(q) || 
-                       (r.wa || '').toLowerCase().includes(q) ||
-                       (r.apk || '').toLowerCase().includes(q);
-        const matchSt = (st === 'ALL') || (cat === st);
-        const matchKec = (kec === 'ALL') || (r.kecamatan.toLowerCase() === kec.toLowerCase());
-
-        return matchQ && matchSt && matchKec;
-      });
-
-      renderTable(filtered);
-    }
-
-    function switchOption(opt) {
-      const bOptA = document.getElementById('btnOptA');
-      const bOptB = document.getElementById('btnOptB');
-      const cOptA = document.getElementById('contentOptA');
-      const cOptB = document.getElementById('contentOptB');
-
-      if (opt === 'B') {
-        bOptB.className = 'px-4 py-2 rounded-lg text-xs font-bold transition bg-indigo-600 text-white shadow-md';
-        bOptA.className = 'px-4 py-2 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white';
-        cOptB.classList.remove('hidden');
-        cOptA.classList.add('hidden');
+      if (mode === 'slide') {
+        slideView.classList.remove('hidden');
+        dashView.classList.add('hidden');
+        btnSlide.className = 'px-3.5 py-1.5 rounded-md transition-all flex items-center gap-1.5 bg-steelblue-500 text-white font-semibold';
+        btnDash.className = 'px-3.5 py-1.5 rounded-md transition-all flex items-center gap-1.5 text-slate-400 hover:text-white';
       } else {
-        bOptA.className = 'px-4 py-2 rounded-lg text-xs font-bold transition bg-rose-600 text-white shadow-md';
-        bOptB.className = 'px-4 py-2 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white';
-        cOptA.classList.remove('hidden');
-        cOptB.classList.add('hidden');
+        slideView.classList.add('hidden');
+        dashView.classList.remove('hidden');
+        btnDash.className = 'px-3.5 py-1.5 rounded-md transition-all flex items-center gap-1.5 bg-steelblue-500 text-white font-semibold';
+        btnSlide.className = 'px-3.5 py-1.5 rounded-md transition-all flex items-center gap-1.5 text-slate-400 hover:text-white';
+        renderDashboardCharts();
       }
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      renderTable(rawRecords);
+    // SLIDE NAVIGATION
+    function renderSlideIndicators() {
+      const container = document.getElementById('slide-indicators');
+      container.innerHTML = '';
+      for (let i = 1; i <= totalSlides; i++) {
+        const dot = document.createElement('button');
+        dot.onclick = () => goToSlide(i);
+        dot.className = `w-2 h-2 rounded-full transition-all ${i === currentSlide ? 'bg-steelblue-400 w-5' : 'bg-premium-800 hover:bg-premium-700'}`;
+        container.appendChild(dot);
+      }
+    }
 
-      // Funnel Donut Chart
-      const ctxFunnel = document.getElementById('funnelChart').getContext('2d');
-      new Chart(ctxFunnel, {
+    function updateSlide() {
+      const pages = document.querySelectorAll('.slide-page');
+      pages.forEach(p => {
+        const pageNum = parseInt(p.getAttribute('data-page'));
+        if (pageNum === currentSlide) {
+          p.classList.remove('hidden');
+          document.getElementById('slide-topic').textContent = p.getAttribute('data-topic') || 'Executive Strategy';
+        } else {
+          p.classList.add('hidden');
+        }
+      });
+
+      document.getElementById('slide-counter').textContent = `Slide ${currentSlide} / ${totalSlides}`;
+      document.getElementById('btn-prev').disabled = currentSlide === 1;
+      
+      const nextBtn = document.getElementById('btn-next');
+      if (currentSlide === totalSlides) {
+        nextBtn.innerHTML = `Buka Dashboard <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>`;
+      } else {
+        nextBtn.innerHTML = `Slide Berikutnya <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>`;
+      }
+
+      renderSlideIndicators();
+
+      if (currentSlide === 2) {
+        setTimeout(renderFunnelSlideChart, 100);
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        currentSlide++;
+        updateSlide();
+      } else {
+        switchView('dash');
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    function goToSlide(num) {
+      currentSlide = num;
+      updateSlide();
+    }
+
+    // KEYBOARD NAVIGATION
+    window.addEventListener('keydown', (e) => {
+      const slideView = document.getElementById('view-slide');
+      if (!slideView.classList.contains('hidden')) {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+          nextSlide();
+        } else if (e.key === 'ArrowLeft') {
+          prevSlide();
+        }
+      }
+    });
+
+    // CHARTS
+    let funnelSlideChart = null;
+    function renderFunnelSlideChart() {
+      if (funnelSlideChart) return;
+      const ctx = document.getElementById('chart-funnel-slide');
+      if (!ctx) return;
+      funnelSlideChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
-          labels: ['Ditolak (70.2%)', 'Perlu Follow-Up (23.4%)', 'Closing Transaksi (6.4%)'],
+          labels: ['Ditolak (70.2%)', 'Follow-Up (23.4%)', 'Closing (6.4%)'],
           datasets: [{
             data: [33, 11, 3],
-            backgroundColor: ['#ef4444', '#f59e0b', '#10b981'],
-            borderColor: '#0f172a',
-            borderWidth: 3,
-            hoverOffset: 6
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          cutout: '72%'
-        }
-      });
-
-      // Location Breakdown Bar Chart
-      const ctxLoc = document.getElementById('locationChart').getContext('2d');
-      new Chart(ctxLoc, {
-        type: 'bar',
-        data: {
-          labels: ['Sidomukti', 'Argomulyo', 'Tingkir', 'Sidorejo'],
-          datasets: [
-            {
-              label: 'Closing',
-              data: [2, 1, 0, 0],
-              backgroundColor: '#10b981',
-              borderRadius: 6
-            },
-            {
-              label: 'Follow-Up',
-              data: [5, 3, 2, 1],
-              backgroundColor: '#f59e0b',
-              borderRadius: 6
-            },
-            {
-              label: 'Ditolak',
-              data: [5, 9, 8, 7],
-              backgroundColor: '#ef4444',
-              borderRadius: 6
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            x: {
-              stacked: true,
-              grid: { color: 'rgba(255, 255, 255, 0.05)' },
-              ticks: { color: '#94a3b8' }
-            },
-            y: {
-              stacked: true,
-              grid: { color: 'rgba(255, 255, 255, 0.05)' },
-              ticks: { color: '#94a3b8', stepSize: 2 }
-            }
-          },
-          plugins: {
-            legend: {
-              position: 'top',
-              labels: { color: '#cbd5e1', font: { size: 11 } }
-            }
-          }
-        }
-      });
-
-      // Competitor Pie Chart
-      const ctxComp = document.getElementById('competitorChart').getContext('2d');
-      new Chart(ctxComp, {
-        type: 'pie',
-        data: {
-          labels: ['Aplikasi Provider Langsung', 'Bos Pulsa / Server Lokal', 'ShopeePay & Bukalapak', 'Fintech Lain (BRILink/DANA)'],
-          datasets: [{
-            data: [45, 20, 20, 15],
-            backgroundColor: ['#3b82f6', '#8b5cf6', '#ec4899', '#64748b'],
-            borderColor: '#0f172a',
-            borderWidth: 2
+            backgroundColor: ['#991b1b', '#d97706', '#4682b4'],
+            borderColor: '#0c1017',
+            borderWidth: 3
           }]
         },
         options: {
@@ -760,13 +660,161 @@
           plugins: {
             legend: {
               position: 'bottom',
-              labels: { color: '#cbd5e1', font: { size: 11 }, boxWidth: 12 }
+              labels: { color: '#94a3b8', font: { family: 'Plus Jakarta Sans', size: 11 } }
             }
-          }
+          },
+          cutout: '68%'
         }
       });
+    }
 
-    });
+    let districtChart = null;
+    let competitorChart = null;
+    function renderDashboardCharts() {
+      if (districtChart) return;
+
+      const ctxDist = document.getElementById('chart-district');
+      if (ctxDist) {
+        districtChart = new Chart(ctxDist, {
+          type: 'bar',
+          data: {
+            labels: ['Sidomukti', 'Argomulyo', 'Tingkir', 'Sidorejo'],
+            datasets: [
+              {
+                label: 'Ditolak',
+                data: [5, 9, 8, 7],
+                backgroundColor: '#991b1b'
+              },
+              {
+                label: 'Follow-Up',
+                data: [5, 3, 2, 1],
+                backgroundColor: '#d97706'
+              },
+              {
+                label: 'Closing',
+                data: [2, 1, 0, 0],
+                backgroundColor: '#4682b4'
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { stacked: true, grid: { color: '#172030' }, ticks: { color: '#94a3b8' } },
+              y: { stacked: true, grid: { color: '#172030' }, ticks: { color: '#94a3b8' } }
+            },
+            plugins: {
+              legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 } } }
+            }
+          }
+        });
+      }
+
+      const ctxComp = document.getElementById('chart-competitor');
+      if (ctxComp) {
+        competitorChart = new Chart(ctxComp, {
+          type: 'pie',
+          data: {
+            labels: ['Provider Direct (Digipos, Rita)', 'Bos Pulsa & Server Lokal', 'ShopeePay & Mitra Bukalapak', 'Lainnya (BRILink, DANA)'],
+            datasets: [{
+              data: [45, 20, 20, 15],
+              backgroundColor: ['#25527a', '#4682b4', '#94bfe9', '#334464'],
+              borderColor: '#0c1017',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 } } }
+            }
+          }
+        });
+      }
+    }
+
+    // TABLE DIRECTORY LOGIC
+    function filterCounters() {
+      const search = document.getElementById('search-input').value.toLowerCase();
+      const statusFilter = document.getElementById('filter-status').value;
+      const districtFilter = document.getElementById('filter-district').value;
+
+      const filtered = RAW_RECORDS.filter(c => {
+        const matchesSearch = c.name.toLowerCase().includes(search) || 
+                              c.phone.toLowerCase().includes(search) ||
+                              c.notes.toLowerCase().includes(search);
+        
+        let matchesStatus = true;
+        if (statusFilter === 'CLOSING') {
+          matchesStatus = c.status.toLowerCase().includes('doripay') || c.status.toLowerCase().includes('daftar') || c.status.toLowerCase().includes('transaksi');
+        } else if (statusFilter === 'FOLLOWUP') {
+          matchesStatus = c.status.toLowerCase().includes('follow-up') || c.status.toLowerCase().includes('follow up');
+        } else if (statusFilter === 'TOLAK') {
+          matchesStatus = c.status.toLowerCase().includes('tidak tertarik');
+        }
+
+        let matchesDistrict = true;
+        if (districtFilter !== 'ALL') {
+          matchesDistrict = c.district === districtFilter;
+        }
+
+        return matchesSearch && matchesStatus && matchesDistrict;
+      });
+
+      renderTable(filtered);
+    }
+
+    function renderTable(data) {
+      const tbody = document.getElementById('counter-table-body');
+      tbody.innerHTML = '';
+
+      if (data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-500 font-mono">Tidak ada data konter yang sesuai filter.</td></tr>`;
+        document.getElementById('counter-count').textContent = `Menampilkan 0 dari ${RAW_RECORDS.length} konter`;
+        return;
+      }
+
+      data.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-premium-850/50 transition-colors';
+
+        let badgeClass = 'bg-slate-800 text-slate-300 border-slate-700';
+        if (item.status.includes('Doripay') || item.status.includes('transaksi')) {
+          badgeClass = 'bg-steelblue-950 border-steelblue-600 text-steelblue-300';
+        } else if (item.status.includes('follow-up') || item.status.includes('Follow-up')) {
+          badgeClass = 'bg-amber-950/60 border-amber-800/60 text-amber-300';
+        } else {
+          badgeClass = 'bg-rose-950/40 border-rose-900/40 text-rose-300';
+        }
+
+        const cleanPhone = item.phone.replace(/[^0-9]/g, '');
+        const phoneDisplay = item.phone && item.phone !== '-' ? 
+          `<a href="https://wa.me/62${cleanPhone.startsWith('0') ? cleanPhone.slice(1) : cleanPhone}" target="_blank" class="text-steelblue-400 hover:underline flex items-center gap-1 font-mono">${item.phone}</a>` :
+          `<span class="text-slate-600 font-mono">-</span>`;
+
+        tr.innerHTML = `
+          <td class="py-3 px-4 font-medium text-white">${item.name}</td>
+          <td class="py-3 px-4 text-slate-400">${item.district}</td>
+          <td class="py-3 px-4 text-slate-400 max-w-xs truncate">${item.app || '-'}</td>
+          <td class="py-3 px-4">
+            <span class="inline-block px-2 py-0.5 rounded border text-[10px] font-mono ${badgeClass}">
+              ${item.status}
+            </span>
+          </td>
+          <td class="py-3 px-4">${phoneDisplay}</td>
+          <td class="py-3 px-4 text-slate-400 max-w-sm">${item.notes || '-'}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('counter-count').textContent = `Menampilkan ${data.length} dari ${RAW_RECORDS.length} konter`;
+    }
+
+    // INIT
+    updateSlide();
+    renderTable(RAW_RECORDS);
   </script>
 </body>
 </html>
